@@ -56,6 +56,7 @@ def deserialize(json_data):
     """
     params = json.loads(json_data)
     name = params["class"]
+
     target_class = registers[name]
     # 返回类实例对象
     return target_class(*params["args"])
@@ -95,3 +96,4 @@ if __name__ == '__main__':
     after = deserialize(before)
     print(after)
     print(after.param_info.get("keystore_name"))
+

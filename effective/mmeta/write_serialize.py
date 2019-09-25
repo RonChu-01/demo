@@ -35,15 +35,15 @@ class Serializable(object):
         self.args = args
 
     def serialize(self):
-        res = json.dumps({
+        ret = json.dumps({
             "class": self.__class__.__name__,
             "args": self.args
         }, indent=4, ensure_ascii=False)
 
         with open("local.json", "w") as f:
-            f.write(res)
+            f.write(ret)
 
-        return res
+        return ret
 
     def __repr__(self):
         return "Serializable {0}: args->{1}".format(self.__class__, self.args)
@@ -93,8 +93,12 @@ if __name__ == '__main__':
         }
     }
 
-    mod = ModUpload(params_info)
-    print(mod)
-    before = mod.serialize()
-    print(before)
+    local_data = dict()
+
+    for i in range(5):
+        local_data.setdefault("{0}".format(1000 + i), params_info)
+        mod = ModUpload(local_data)
+        print(mod)
+        before = mod.serialize()
+        print(before)
 

@@ -3,15 +3,21 @@
 # Copyright (c) 2019 3KWan.
 # Description :
 
-import json
-
 from local_serialize import deserialize
 
 
+def exec_deserialize(file):
+    """
+    执行反序列化（还原对象）
+    :param file:
+    :return:
+    """
+    with open(file, "r") as f:
+        data = f.read()
+        obj = deserialize(data)
+        return obj
+
+
 if __name__ == '__main__':
-    with open("local.json", "r") as f:
-        before = json.loads(f.read())
-        print(before)
-        after = deserialize(before)
-        print(after)
-        print(after.param_info.get("keystore_name"))
+    ret = exec_deserialize("local.json")
+    print(ret.param_info)
